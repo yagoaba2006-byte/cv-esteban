@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Esteban Aba Perea — CV interactif</title>
+<style>
+  :root { color-scheme: light; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    background: #F8F5EE;
+    color: #2B2B2B;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M60 100C40 85 30 65 35 45 C55 40 70 35 85 20 C90 40 95 65 80 85 C75 95 68 100 60 100Z' fill='none' stroke='%231F3D2E' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+  }
+
+  :root {
+    --green: #1F3D2E;
+    --green-light: #2C5440;
+    --gold: #A9834F;
+    --gold-light: #C9A876;
+    --sand: #F8F5EE;
+    --white: #FFFFFF;
+    --text-dark: #2B2B2B;
+    --text-gray: #6E6E6E;
+    --water: #2E86AB;
+    --water-light: #7FC3E0;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--green);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    flex-wrap: wrap;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold-light);
+    font-family: Georgia, 'Cambria', serif;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    padding: 12px 0;
+    white-space: nowrap;
+  }
+  .nav-brand svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--gold-light);
+    stroke-width: 1.8;
+    fill: none;
+  }
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    justify-content: flex-end;
+  }
+  nav a {
+    color: #E8E2D2;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 14px 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background 0.25s, color 0.25s;
+    border-bottom: 3px solid transparent;
+  }
+  nav a:hover, nav a.active {
+    background: var(--green-light);
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero {
+    background: linear-gradient(135deg, var(--green) 0%, #16291E 100%);
+    color: var(--white);
+    padding: 70px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(169,131,79,0.18), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(169,131,79,0.14), transparent 45%);
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 46px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z' fill='%23F8F5EE'/%3E%3C/svg%3E") no-repeat bottom;
+    background-size: 100% 100%;
+  }
+  .hero-leaf-mark {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    width: 130px;
+    height: 130px;
+    stroke: var(--gold-light);
+    stroke-width: 1;
+    fill: none;
+    opacity: 0.14;
+    pointer-events: none;
+  }
+  header.hero h1 {
+    position: relative;
+    margin: 0 0 10px;
+    font-family: Georgia, 'Cambria', serif;
+    font-size: clamp(32px, 6vw, 52px);
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+  header.hero p.tagline {
+    position: relative;
+    margin: 0 0 28px;
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+  }
+  .hero-contact {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: #DCD6C4;
+  }
+  .hero-contact span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-contact .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    display: inline-block;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  main { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
+
+  section { padding: 56px 0 10px; opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  h2.section-title {
+    font-family: Georgia, 'Cambria', serif;
+    color: var(--green);
+    font-size: 26px;
+    letter-spacing: 1px;
+    margin: 0 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  h2.section-title::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }
+
+  p.profile-text {
+    font-size: 16.5px;
+    line-height: 1.75;
+    color: var(--text-dark);
+    background: var(--white);
+    border-left: 4px solid var(--gold);
+    padding: 22px 26px;
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(31,61,46,0.06);
+  }
+
+  /* ---------- TIMELINE CARDS ---------- */
+  .entry {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(31,61,46,0.06);
+    border-left: 4px solid transparent;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+  .entry:hover {
+    border-left-color: var(--gold);
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(31,61,46,0.12);
+  }
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .entry-title {
+    font-weight: 700;
+    font-size: 16.5px;
+    color: var(--text-dark);
+  }
+  .entry-dates {
+    font-size: 13.5px;
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .entry-place {
+    font-size: 14px;
+    color: var(--text-gray);
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .entry-details {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .entry.open .entry-details {
+    max-height: 500px;
+  }
+  .entry-details li {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    padding: 6px 0 6px 20px;
+    position: relative;
+  }
+  .entry-details li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+  .entry-desc {
+    font-size: 14.5px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 10px 0 0;
+  }
+  .entry-toggle {
+    font-size: 12px;
+    color: var(--text-gray);
+    margin-top: 6px;
+  }
+  .entry.open .entry-toggle .chevron { transform: rotate(180deg); }
+  .chevron { display: inline-block; transition: transform 0.25s; margin-left: 4px; }
+
+  /* ---------- SKILLS / INTERESTS GRID ---------- */
+  .pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill {
+    background: var(--sand);
+    border: 1px solid var(--gold-light);
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 999px;
+    transition: background 0.25s, color 0.25s, transform 0.2s;
+  }
+  .pill:hover {
+    background: var(--green);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- LANGUAGES ---------- */
+  .lang-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+  }
+  .lang-card {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 16px 18px;
+    box-shadow: 0 2px 10px rgba(31,61,46,0.06);
+  }
+  .lang-name {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 15px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .lang-name .level-label { color: var(--gold); font-size: 13px; font-weight: 600; }
+  .lang-bar-bg {
+    background: #E9E4D6;
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .lang-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--gold), var(--green));
+    width: 0%;
+    border-radius: 999px;
+    transition: width 1.1s ease 0.1s;
+  }
+
+  /* ---------- INTERESTS ---------- */
+  .interest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .interest-card {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 10px rgba(31,61,46,0.06);
+    font-size: 14.5px;
+    color: var(--text-dark);
+    line-height: 1.55;
+    border-top: 3px solid var(--gold-light);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .contact-card {
+    background: var(--green);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 20px 22px;
+  }
+  .contact-card .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+  .contact-card .value {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 0 46px;
+    font-size: 12.5px;
+    color: var(--text-gray);
+  }
+
+  /* ---------- HIGHLIGHTS ---------- */
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .highlight-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 24px 24px 22px;
+    box-shadow: 0 2px 10px rgba(31,61,46,0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .highlight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(31,61,46,0.14);
+  }
+  .highlight-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .highlight-icon svg { width: 22px; height: 22px; stroke: var(--gold-light); fill: none; }
+  .highlight-action {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .highlight-desc {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .highlight-meta {
+    font-size: 12.5px;
+    color: var(--gold);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .highlight-card { cursor: pointer; }
+  .highlight-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .highlight-card.open .highlight-detail { max-height: 1200px; }
+  .highlight-toggle-hint {
+    font-size: 12px;
+    color: var(--text-gray);
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .highlight-card.open .highlight-toggle-hint .chevron { transform: rotate(180deg); }
+
+  .detail-sub-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 16px 0 6px;
+  }
+  .highlight-detail .detail-sub-title:first-child { margin-top: 14px; }
+  .detail-text {
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0 0 4px;
+  }
+  .detail-list {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+  .detail-list li { margin-bottom: 6px; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 10px; }
+  .chip {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--sand);
+    border: 1px solid var(--gold-light);
+    color: var(--green);
+  }
+
+  .cycle-widget { background: var(--sand); border-radius: 8px; padding: 16px 18px; margin: 10px 0 16px; }
+  .cycle-toggle { display: flex; gap: 8px; margin-bottom: 12px; }
+  .cycle-btn {
+    flex: 1;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--gold-light);
+    background: var(--white);
+    color: var(--green);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .cycle-btn.active { background: var(--green); color: var(--white); border-color: var(--green); }
+  .cycle-visual { display: none; height: 34px; border-radius: 6px; overflow: hidden; }
+  .cycle-visual.show { display: flex; }
+  .cycle-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 4px;
+  }
+  .cycle-caption { display: none; font-size: 13px; color: var(--text-dark); margin-top: 10px; line-height: 1.55; }
+  .cycle-caption.show { display: block; }
+
+  /* ---------- HERO FOUNTAIN ---------- */
+  .fountain {
+    position: relative;
+    width: 220px;
+    max-width: 62vw;
+    margin: 10px auto 2px;
+  }
+  .fountain svg { width: 100%; height: auto; overflow: visible; display: block; }
+  .fountain-stone {
+    fill: rgba(201,168,118,0.16);
+    stroke: var(--gold-light);
+    stroke-width: 1.6;
+  }
+  .fountain-basin-water {
+    fill: rgba(46,134,171,0.35);
+    stroke: var(--water-light);
+    stroke-width: 1;
+  }
+  .fountain-ripple {
+    fill: none;
+    stroke: var(--water-light);
+    stroke-width: 1.2;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: fountain-ripple-anim 3s ease-out infinite;
+  }
+  @keyframes fountain-ripple-anim {
+    0% { transform: scale(0.3); opacity: 0.6; }
+    80% { opacity: 0; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  .fountain-jet circle {
+    fill: var(--water-light);
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .fountain-jet-c circle { animation: jet-center 1.6s ease-in infinite; }
+  .fountain-jet-l circle { animation: jet-left 1.6s ease-in infinite; }
+  .fountain-jet-r circle { animation: jet-right 1.6s ease-in infinite; }
+  @keyframes jet-center {
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    10% { opacity: 1; }
+    50% { transform: translateY(-34px) scale(1); opacity: 1; }
+    100% { transform: translateY(6px) scale(0.6); opacity: 0; }
+  }
+  @keyframes jet-left {
+    0% { transform: translate(0,0) scale(0.6); opacity: 0; }
+    10% { opacity: 1; }
+    50% { transform: translate(-16px,-24px) scale(0.9); opacity: 1; }
+    100% { transform: translate(-26px,6px) scale(0.5); opacity: 0; }
+  }
+  @keyframes jet-right {
+    0% { transform: translate(0,0) scale(0.6); opacity: 0; }
+    10% { opacity: 1; }
+    50% { transform: translate(16px,-24px) scale(0.9); opacity: 1; }
+    100% { transform: translate(26px,6px) scale(0.5); opacity: 0; }
+  }
+
+  /* ---------- SCROLL CUE ---------- */
+  .scroll-cue {
+    position: relative;
+    margin-top: 16px;
+    color: var(--water-light);
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
+  }
+  .scroll-chevron {
+    font-size: 16px;
+    line-height: 1;
+    animation: scroll-bounce 1.6s ease-in-out infinite;
+  }
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.45; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+
+  /* ---------- RIVER (parcours interactif) ---------- */
+  .river-container {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 610px);
+    width: 140px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @media (min-width: 1300px) {
+    .river-container { display: block; }
+  }
+  .river-bed {
+    fill: none;
+    stroke: #D8CFBA;
+    stroke-width: 3;
+    opacity: 0.6;
+  }
+  .river-water {
+    fill: none;
+    stroke: url(#riverGrad);
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s linear;
+  }
+  .river-drop {
+    fill: var(--water-light);
+    filter: drop-shadow(0 0 4px rgba(46,134,171,0.6));
+  }
+  .river-marker circle.pin {
+    stroke: var(--white);
+    stroke-width: 1.5;
+  }
+  .ripple-ring {
+    fill: none;
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+  }
+  .ripple-ring.active {
+    animation: ripple-expand 1.3s ease-out;
+  }
+  @keyframes ripple-expand {
+    0% { transform: scale(0.5); opacity: 0.7; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+
+  /* -- rocky ledges / moss / foam / pebbles along the river course -- */
+  .river-ledge {
+    fill: var(--gold-light);
+    stroke: var(--gold);
+    stroke-width: 1.4;
+    opacity: 0.9;
+  }
+  .river-ledge-moss {
+    fill: none;
+    stroke: var(--green-light);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .river-foam-dot {
+    fill: var(--white);
+    opacity: 0.85;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: foam-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes foam-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(0.9); }
+    50% { opacity: 0.95; transform: scale(1.15); }
+  }
+  .river-pebble {
+    fill: #D8CFBA;
+    opacity: 0.8;
+  }
+
+  /* main needs to sit above the decorative river */
+  main { position: relative; z-index: 1; }
+  main > section { position: relative; z-index: 1; }
+
+  @media (max-width: 600px) {
+    nav a { padding: 10px 10px; font-size: 11.5px; }
+    header.hero { padding: 52px 18px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="river-container" id="riverContainer" aria-hidden="true">
+  <svg id="riverSvg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="riverGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2E86AB"/>
+        <stop offset="100%" stop-color="#2C5440"/>
+      </linearGradient>
+    </defs>
+    <path class="river-bed" id="riverBed" d=""/>
+    <g id="riverRocks"></g>
+    <path class="river-water" id="riverWater" d=""/>
+    <g id="riverFoam"></g>
+    <g id="riverPebbles"></g>
+    <g id="riverMarkers"></g>
+    <circle class="river-drop" id="riverDrop" r="6"/>
+  </svg>
+</div>
+
+<nav id="navbar">
+  <div class="nav-brand">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-11 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/><circle cx="13" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="9.8" cy="6.1" r="1.1" fill="currentColor" stroke="none"/></svg>
+    <span>E. ABA PEREA</span>
+  </div>
+  <div class="nav-links">
+    <a href="#profil">Profil</a>
+    <a href="#realisations">Réalisations</a>
+    <a href="#formations">Formations</a>
+    <a href="#experiences">Expériences</a>
+    <a href="#associatif">Associatif</a>
+    <a href="#competences">Compétences</a>
+    <a href="#langues">Langues</a>
+    <a href="#interets">Intérêts</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="hero-leaf-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-11 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/><circle cx="13" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="9.8" cy="6.1" r="1" fill="currentColor" stroke="none"/></svg>
+  <h1>ESTEBAN ABA PEREA</h1>
+  <p class="tagline">Étudiant Ingénieur — Énergie &amp; Environnement</p>
+  <div class="hero-contact">
+    <span><span class="dot"></span>29 rue Verlaine, 54000 Nancy / Poitiers</span>
+    <span><span class="dot"></span>06 48 01 43 96</span>
+    <span><span class="dot"></span>esteban.aba2005@gmail.com</span>
+  </div>
+
+  <div class="fountain" aria-hidden="true">
+    <svg viewBox="0 0 220 170" xmlns="http://www.w3.org/2000/svg">
+      <ellipse class="fountain-basin-water" cx="110" cy="138" rx="78" ry="18"/>
+      <path class="fountain-stone" d="M18 138 C18 150 50 158 110 158 C170 158 202 150 202 138 C202 126 170 120 110 120 C50 120 18 126 18 138Z"/>
+      <ellipse class="fountain-ripple" cx="110" cy="138" rx="30" ry="7"/>
+      <ellipse class="fountain-ripple" cx="110" cy="138" rx="30" ry="7" style="animation-delay:1.2s"/>
+      <path class="fountain-stone" d="M98 120 L98 78 C98 72 122 72 122 78 L122 120 Z"/>
+      <path class="fountain-stone" d="M70 78 C70 86 90 92 110 92 C130 92 150 86 150 78 C150 70 130 64 110 64 C90 64 70 70 70 78Z"/>
+      <ellipse class="fountain-basin-water" cx="110" cy="76" rx="36" ry="9"/>
+      <g class="fountain-jet fountain-jet-c">
+        <circle cx="110" cy="76" r="2.4"/>
+        <circle cx="110" cy="76" r="2" style="animation-delay:0.25s"/>
+        <circle cx="110" cy="76" r="1.6" style="animation-delay:0.5s"/>
+      </g>
+      <g class="fountain-jet fountain-jet-l">
+        <circle cx="110" cy="76" r="2"/>
+        <circle cx="110" cy="76" r="1.6" style="animation-delay:0.35s"/>
+      </g>
+      <g class="fountain-jet fountain-jet-r">
+        <circle cx="110" cy="76" r="2"/>
+        <circle cx="110" cy="76" r="1.6" style="animation-delay:0.35s"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>Pour mieux comprendre mon parcours, suis le cours de l'eau</span>
+    <div class="scroll-chevron">⌄</div>
+  </div>
+</header>
+
+<main>
+
+  <section id="profil">
+    <h2 class="section-title">Profil</h2>
+    <p class="profile-text">Étudiant en 4ème année du cycle ingénieur et engagé dans le domaine de l'énergie et de l'environnement, je souhaite, au travers d'un stage dans votre entreprise, contribuer à l'accompagnement des transitions énergétiques. Cette ambition, au-delà de mes études en école d'ingénieur, m'amène à rechercher comment les nouvelles technologies comme l'IA contribuent à répondre à ces défis majeurs. Pour répondre à vos besoins, je peux aussi m'appuyer sur mes capacités intra et interpersonnelles telles que l'autonomie, la curiosité et l'adaptation à différents environnements.</p>
+  </section>
+
+  <section id="realisations">
+    <h2 class="section-title">Réalisations</h2>
+    <div class="highlight-grid">
+
+      <div class="highlight-card" data-card="rochling">
+        <div class="highlight-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-11 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/><circle cx="13" cy="12" r="1" style="fill:var(--gold-light)" stroke="none"/><circle cx="9.8" cy="6.1" r="1" style="fill:var(--gold-light)" stroke="none"/></svg>
+        </div>
+        <div class="highlight-action">A réduit la consommation énergétique d'un atelier industriel</div>
+        <div class="highlight-desc">Proposé des solutions concrètes pour améliorer le confort thermique des ouvriers été comme hiver, puis présenté les résultats directement au Comité Exécutif.</div>
+        <div class="highlight-meta">Röchling Industrial · 2024</div>
+
+        <div class="highlight-detail">
+          <div class="detail-sub-title">Pistes proposées</div>
+          <ul class="detail-list">
+            <li>Ventilation, isolation, puits provençal pour réguler naturellement la température de l'atelier.</li>
+            <li>Détecteurs de lumière intelligents et adaptatifs, ajustant l'éclairage selon la présence réelle.</li>
+            <li><strong>Système IA thermodynamique</strong> pour les presses chauffantes : plutôt que de les maintenir en température en continu, l'IA laisse la presse refroidir naturellement quand elle est vide, puis pilote les skids électriques pour la remettre à température juste avant l'arrivée du matériau suivant — sans ralentir la production.</li>
+          </ul>
+
+          <div class="cycle-widget">
+            <div class="cycle-toggle">
+              <button class="cycle-btn active" data-mode="standard" type="button">Cycle actuel</button>
+              <button class="cycle-btn" data-mode="ai" type="button">Cycle optimisé (IA)</button>
+            </div>
+            <div class="cycle-visual show" data-mode="standard">
+              <div class="cycle-seg" style="flex-grow:4; background:#C9654B;">Chauffe continue</div>
+              <div class="cycle-seg" style="flex-grow:1; background:#8A8A8A;">Presse vide</div>
+              <div class="cycle-seg" style="flex-grow:4; background:#C9654B;">Chauffe continue</div>
+            </div>
+            <div class="cycle-visual" data-mode="ai">
+              <div class="cycle-seg" style="flex-grow:3; background:#2C5440;">Chauffe</div>
+              <div class="cycle-seg" style="flex-grow:3; background:#A9834F;">Refroidissement naturel</div>
+              <div class="cycle-seg" style="flex-grow:1; background:#2C5440;">Préchauffe ciblée</div>
+            </div>
+            <div class="cycle-caption show" data-mode="standard">La presse reste chauffée en continu même lorsqu'elle est vide entre deux cycles : de l'énergie et de la chaleur sont perdues sans nécessité.</div>
+            <div class="cycle-caption" data-mode="ai">L'IA détecte l'absence de matériau, laisse la presse refroidir naturellement, puis relance la chauffe juste à temps : moins de pertes thermiques, moins de consommation électrique, aucun impact sur la cadence.</div>
+          </div>
+
+          <div class="detail-sub-title">Méthode d'analyse</div>
+          <div class="chip-row">
+            <span class="chip">Coût / ROI (quick wins)</span>
+            <span class="chip">Gain CO2</span>
+            <span class="chip">Confort des ouvriers</span>
+          </div>
+          <p class="detail-text">Classement de chaque piste dans un tableau Excel selon son coût, son retour sur investissement et son impact environnemental ou humain — avec une pondération forte sur le gain financier et le gain CO2. Les mesures de température n'ayant pas pu être instrumentées (stage d'un mois), l'analyse s'est appuyée sur l'observation directe de l'atelier et les témoignages des ouvriers (trop froid en hiver, trop chaud en été selon les zones).</p>
+
+          <div class="detail-sub-title">Restitution</div>
+          <p class="detail-text">Présentation orale de 10 minutes devant le directeur et des membres du Comité Exécutif, avec des échanges sur plusieurs pistes qui les ont particulièrement intéressés. Ces idées posent les bases d'un projet destiné à être approfondi par la suite.</p>
+
+          <div class="detail-sub-title">Compétences acquises</div>
+          <p class="detail-text">Découverte des normes ISO, de la sécurité au travail et de la protection de l'environnement en contexte industriel ; usage d'Excel, PowerPoint et Word ; pistes complémentaires évoquées (simulation lumineuse pour les reflets de peinture cool-roofing, repérage thermique des fuites d'air).</p>
+        </div>
+        <div class="highlight-toggle-hint">Voir le détail <span class="chevron">▾</span></div>
+      </div>
+
+      <div class="highlight-card" data-card="waterwatch">
+        <div class="highlight-icon">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3.5 4 5.5 7.2 5.5 10a5.5 5.5 0 1 1-11 0c0-2.8 2-6 5.5-10z"/></svg>
+        </div>
+        <div class="highlight-action">A mesuré et analysé la qualité de l'eau sur le terrain</div>
+        <div class="highlight-desc">De la prise d'échantillons en rivière aux calculs en laboratoire, jusqu'à la présentation publique des résultats devant un auditoire.</div>
+        <div class="highlight-meta">Objectif Sciences International · 2022</div>
+
+        <div class="highlight-detail">
+          <div class="detail-sub-title">Sur le terrain</div>
+          <p class="detail-text">Mesures de débits et relevés d'échantillons en rivière.</p>
+          <div class="detail-sub-title">En laboratoire</div>
+          <p class="detail-text">Analyse de la qualité de l'eau et calculs associés.</p>
+          <div class="detail-sub-title">Restitution</div>
+          <p class="detail-text">Présentation publique du compte-rendu devant un auditoire.</p>
+        </div>
+        <div class="highlight-toggle-hint">Voir le détail <span class="chevron">▾</span></div>
+      </div>
+
+      <div class="highlight-card" data-card="tennis">
+        <div class="highlight-icon">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M4 12h16M12 4a13 13 0 0 1 0 16M12 4a13 13 0 0 0 0 16"/></svg>
+        </div>
+        <div class="highlight-action">A conçu et encadré des cours de tennis pour des jeunes</div>
+        <div class="highlight-desc">Création d'exercices adaptés et d'activités ludiques, avec un rôle actif d'arbitrage au Championnat de France de para-tennis.</div>
+        <div class="highlight-meta">Clubs locaux · 2022</div>
+
+        <div class="highlight-detail">
+          <p class="detail-text">Création d'exercices adaptés et d'activités ludiques pour des jeunes joueurs, avec un rôle actif d'arbitrage lors du Championnat de France de para-tennis.</p>
+        </div>
+        <div class="highlight-toggle-hint">Voir le détail <span class="chevron">▾</span></div>
+      </div>
+
+      <div class="highlight-card" data-card="fetelemur">
+        <div class="highlight-icon">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        </div>
+        <div class="highlight-action">A accompagné des jeunes en difficulté sociale par le sport</div>
+        <div class="highlight-desc">Encadrement bénévole favorisant l'intégration sociale au sein de l'association Fête le Mur.</div>
+        <div class="highlight-meta">Fête le Mur · 2021</div>
+
+        <div class="highlight-detail">
+          <p class="detail-text">Encadrement bénévole de jeunes en difficulté sociale, avec le sport comme levier d'intégration et de confiance en soi.</p>
+        </div>
+        <div class="highlight-toggle-hint">Voir le détail <span class="chevron">▾</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="formations">
+    <h2 class="section-title">Formations</h2>
+
+    <div class="entry" data-open="true">
+      <div class="entry-head">
+        <span class="entry-title">Ingénierie</span>
+        <span class="entry-dates">Depuis sept. 2025</span>
+      </div>
+      <div class="entry-place">École Nationale Supérieure des Ingénieurs de Poitiers (ENSIP)</div>
+      <ul class="entry-details">
+        <li>Filière « Énergie et Environnement » visant à approfondir les connaissances dans différents domaines de la physique en respectant les contraintes économiques et écologiques.</li>
+        <li>Choix de parcours « Éclairage, Acoustique et Thermique » afin de répondre au besoin croissant de confort pour tout type de site (intérieur et extérieur).</li>
+      </ul>
+      <div class="entry-toggle">Détails <span class="chevron">▾</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Classe Préparatoire aux Grandes Écoles (PCSI puis PC)</span>
+        <span class="entry-dates">Sept. 2023 – Juin 2025</span>
+      </div>
+      <div class="entry-place">Lycée Henri Poincaré, Nancy</div>
+      <ul class="entry-details">
+        <li>Spécialisation en physique et chimie.</li>
+      </ul>
+      <div class="entry-toggle">Détails <span class="chevron">▾</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Baccalauréat général — Mention Très Bien</span>
+        <span class="entry-dates">Sept. 2020 – Juil. 2023</span>
+      </div>
+      <div class="entry-place">Lycée St Léon IX, Nancy</div>
+      <ul class="entry-details">
+        <li>Spécialités mathématiques, physique-chimie, Sciences de la Vie et de la Terre, option maths expertes.</li>
+      </ul>
+      <div class="entry-toggle">Détails <span class="chevron">▾</span></div>
+    </div>
+  </section>
+
+  <section id="experiences">
+    <h2 class="section-title">Expériences extra-scolaires</h2>
+
+    <div class="entry" data-open="true">
+      <div class="entry-head">
+        <span class="entry-title">Stage — Plan de décarbonation d'entreprise</span>
+        <span class="entry-dates">2024</span>
+      </div>
+      <div class="entry-place">Röchling Industrial, Nancy</div>
+      <ul class="entry-details">
+        <li>Propositions d'idées pour réduire les consommations énergétiques de l'atelier en améliorant le confort thermique des ouvriers (été et hiver).</li>
+        <li>Présentation des résultats en fin de COMEX.</li>
+        <li>Découverte du milieu de l'entreprise et des normes à respecter.</li>
+      </ul>
+      <div class="entry-toggle">Détails <span class="chevron">▾</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Étudiant international</span>
+        <span class="entry-dates">Juil. 2024</span>
+      </div>
+      <div class="entry-place">Universidad Complutense de Madrid</div>
+      <ul class="entry-details">
+        <li>Cours intensifs d'espagnol, obtention du niveau B2 (examen certifié CertAcles).</li>
+      </ul>
+      <div class="entry-toggle">Détails <span class="chevron">▾</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Programme de Recherche et d'Éducation « Water Watch »</span>
+        <span class="entry-dates">Juil. 2022</span>
+      </div>
+      <div class="entry-place">Objectif Sciences International, Nancy</div>
+      <ul class="entry-details">
+        <li>Sur le terrain : mesures de débits, relevés d'échantillons.</li>
+        <li>En laboratoire : analyse de la qualité de l'eau et calculs.</li>
+        <li>En salle : présentation en public du compte-rendu.</li>
+      </ul>
+      <div class="entry-toggle">Détails <span class="chevron">▾</span></div>
+    </div>
+  </section>
+
+  <section id="associatif">
+    <h2 class="section-title">Expériences associatives</h2>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Cours de tennis</span>
+        <span class="entry-dates">2022</span>
+      </div>
+      <p class="entry-desc">Encadrement de cours de tennis auprès de jeunes, organisation et création d'exercices adaptés et d'activités ludiques.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Fête le Mur</span>
+        <span class="entry-dates">Juin 2021</span>
+      </div>
+      <p class="entry-desc">Accompagnement de jeunes en difficulté sociale pour favoriser l'intégration sociale par le sport.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">Championnat de France de para tennis</span>
+        <span class="entry-dates">2022</span>
+      </div>
+      <p class="entry-desc">Arbitrage des rencontres entre participants.</p>
+    </div>
+  </section>
+
+  <section id="competences">
+    <h2 class="section-title">Compétences</h2>
+    <div class="pill-grid">
+      <span class="pill">Bonne capacité rédactionnelle</span>
+      <span class="pill">Travail en équipe</span>
+      <span class="pill">Forte capacité d'adaptation</span>
+      <span class="pill">Autonomie</span>
+      <span class="pill">Curiosité</span>
+    </div>
+  </section>
+
+  <section id="langues">
+    <h2 class="section-title">Langues</h2>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="lang-name"><span>Français</span><span class="level-label">Langue maternelle</span></div>
+        <div class="lang-bar-bg"><div class="lang-bar-fill" data-pct="100"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name"><span>Anglais</span><span class="level-label">B2</span></div>
+        <div class="lang-bar-bg"><div class="lang-bar-fill" data-pct="65"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name"><span>Espagnol</span><span class="level-label">C1</span></div>
+        <div class="lang-bar-bg"><div class="lang-bar-fill" data-pct="85"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name"><span>Chinois</span><span class="level-label">A1</span></div>
+        <div class="lang-bar-bg"><div class="lang-bar-fill" data-pct="20"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="interets">
+    <h2 class="section-title">Centres d'intérêt</h2>
+    <div class="interest-grid">
+      <div class="interest-card">Découverte de nouvelles technologies : IA (machine learning et deep learning)</div>
+      <div class="interest-card">Voyages (Australie, États-Unis, Canada, Europe…) pour la découverte de nouvelles cultures</div>
+      <div class="interest-card">Sport (tennis, football…)</div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="label">Adresse</div>
+        <div class="value">29 rue Verlaine, 54000 Nancy / Poitiers</div>
+      </div>
+      <div class="contact-card">
+        <div class="label">Téléphone</div>
+        <div class="value">06 48 01 43 96</div>
+      </div>
+      <div class="contact-card">
+        <div class="label">E-mail</div>
+        <div class="value">esteban.aba2005@gmail.com</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>CV interactif — Esteban Aba Perea</footer>
+
+<script>
+  // Toggle entry cards open/closed
+  document.querySelectorAll('.entry').forEach(function(el) {
+    if (el.dataset.open === 'true') el.classList.add('open');
+    if (el.querySelector('.entry-details')) {
+      el.addEventListener('click', function() {
+        el.classList.toggle('open');
+      });
+    }
+  });
+
+  // Toggle highlight (Réalisations) cards open/closed
+  document.querySelectorAll('.highlight-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('open');
+    });
+  });
+
+  // Cycle widget toggle (Röchling) — standard vs IA
+  document.querySelectorAll('.cycle-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var widget = btn.closest('.cycle-widget');
+      var mode = btn.getAttribute('data-mode');
+      widget.querySelectorAll('.cycle-btn').forEach(function(b) {
+        b.classList.toggle('active', b === btn);
+      });
+      widget.querySelectorAll('.cycle-visual').forEach(function(v) {
+        v.classList.toggle('show', v.getAttribute('data-mode') === mode);
+      });
+      widget.querySelectorAll('.cycle-caption').forEach(function(c) {
+        c.classList.toggle('show', c.getAttribute('data-mode') === mode);
+      });
+    });
+  });
+
+  // Animate language bars when visible
+  function animateBars() {
+    document.querySelectorAll('.lang-bar-fill').forEach(function(bar) {
+      var pct = bar.getAttribute('data-pct');
+      bar.style.width = pct + '%';
+    });
+  }
+
+  // Reveal sections on scroll + active nav highlighting
+  var sections = document.querySelectorAll('main section');
+  var navLinks = document.querySelectorAll('#navbar a');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        if (entry.target.id === 'langues') animateBars();
+      }
+    });
+  }, { threshold: 0.15 });
+
+  sections.forEach(function(s) { observer.observe(s); });
+
+  var navObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      var link = document.querySelector('#navbar a[href="#' + entry.target.id + '"]');
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(function(l) { l.classList.remove('active'); });
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+
+  sections.forEach(function(s) { navObserver.observe(s); });
+
+  // ---------- RIVER (parcours interactif) ----------
+  (function() {
+    var container = document.getElementById('riverContainer');
+    var svg = document.getElementById('riverSvg');
+    var bed = document.getElementById('riverBed');
+    var water = document.getElementById('riverWater');
+    var drop = document.getElementById('riverDrop');
+    var markersGroup = document.getElementById('riverMarkers');
+    var rocksGroup = document.getElementById('riverRocks');
+    var foamGroup = document.getElementById('riverFoam');
+    var pebblesGroup = document.getElementById('riverPebbles');
+    var mainEl = document.querySelector('main');
+    if (!container || !svg || !mainEl) return;
+
+    var cardThemes = {
+      rochling:   '#A9834F',
+      waterwatch: '#2E86AB',
+      tennis:     '#2C5440',
+      fetelemur:  '#C9668A'
+    };
+
+    var totalLen = 0;
+    var riverWidth = 140;
+    var riverHeight = 0;
+
+    function buildRiverGeometry(height, width) {
+      var step = 220;
+      var amp = width * 0.32;
+      var cx = width / 2;
+      var d = 'M ' + cx + ' 0';
+      var y = 0;
+      var dir = 1;
+      var ledges = [];
+      var pebbles = [];
+      while (y < height) {
+        var nextY = Math.min(y + step, height);
+        var cpX = cx + dir * amp;
+        d += ' C ' + cpX + ' ' + (y + step * 0.25) + ', ' + cpX + ' ' + (nextY - step * 0.25) + ', ' + cx + ' ' + nextY;
+
+        var midY = (y + nextY) / 2;
+        pebbles.push({ x: cx + dir * amp * 0.7, y: midY, dir: dir });
+
+        if (nextY > 10 && nextY < height - 10) {
+          ledges.push({ x: cx, y: nextY, dir: dir });
+        }
+
+        y = nextY;
+        dir *= -1;
+      }
+      return { d: d, ledges: ledges, pebbles: pebbles };
+    }
+
+    var ledgeFoamOffsets = [[-10, 5], [2, 8], [13, 4]];
+    var pebbleOffsets = [[-6, -3, 3], [5, 4, 2], [-2, 7, 2.5]];
+
+    function renderRocksAndTexture(ledges, pebbles) {
+      if (!rocksGroup || !foamGroup || !pebblesGroup) return;
+      rocksGroup.innerHTML = '';
+      foamGroup.innerHTML = '';
+      pebblesGroup.innerHTML = '';
+
+      ledges.forEach(function(l) {
+        var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', 'translate(' + l.x + ',' + l.y + ') rotate(' + (l.dir * 5) + ')');
+
+        var rock = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        rock.setAttribute('class', 'river-ledge');
+        rock.setAttribute('d', 'M -52 4 C -38 -15 -17 -19 0 -11 C 17 -20 36 -13 52 4 C 36 13 -36 13 -52 4 Z');
+        g.appendChild(rock);
+
+        var moss = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        moss.setAttribute('class', 'river-ledge-moss');
+        moss.setAttribute('d', 'M -46 -1 C -33 -13 -15 -17 0 -10 C 15 -18 32 -12 46 -1');
+        g.appendChild(moss);
+
+        rocksGroup.appendChild(g);
+
+        ledgeFoamOffsets.forEach(function(off, i) {
+          var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('class', 'river-foam-dot');
+          dot.setAttribute('cx', l.x + off[0]);
+          dot.setAttribute('cy', l.y + off[1]);
+          dot.setAttribute('r', 2.2);
+          dot.style.animationDelay = (i * 0.4) + 's';
+          foamGroup.appendChild(dot);
+        });
+      });
+
+      pebbles.forEach(function(p) {
+        pebbleOffsets.forEach(function(off) {
+          var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('class', 'river-pebble');
+          dot.setAttribute('cx', p.x + off[0]);
+          dot.setAttribute('cy', p.y + off[1]);
+          dot.setAttribute('r', off[2]);
+          pebblesGroup.appendChild(dot);
+        });
+      });
+    }
+
+    function findPointAtY(path, targetY, len) {
+      var lo = 0, hi = len, best = path.getPointAtLength(0);
+      for (var i = 0; i < 25; i++) {
+        var mid = (lo + hi) / 2;
+        var pt = path.getPointAtLength(mid);
+        best = pt;
+        if (pt.y < targetY) { lo = mid; } else { hi = mid; }
+      }
+      return best;
+    }
+
+    function rebuildRiver() {
+      riverHeight = mainEl.offsetHeight;
+      if (riverHeight <= 0) return;
+      container.style.top = mainEl.offsetTop + 'px';
+      container.style.height = riverHeight + 'px';
+      svg.setAttribute('viewBox', '0 0 ' + riverWidth + ' ' + riverHeight);
+      svg.setAttribute('width', riverWidth);
+      svg.setAttribute('height', riverHeight);
+
+      var geo = buildRiverGeometry(riverHeight, riverWidth);
+      bed.setAttribute('d', geo.d);
+      water.setAttribute('d', geo.d);
+      totalLen = water.getTotalLength();
+      water.style.strokeDasharray = totalLen;
+      water.style.strokeDashoffset = totalLen;
+
+      renderRocksAndTexture(geo.ledges, geo.pebbles);
+
+      markersGroup.innerHTML = '';
+      var mainRect = mainEl.getBoundingClientRect();
+      document.querySelectorAll('.highlight-card').forEach(function(card) {
+        var key = card.getAttribute('data-card');
+        var color = cardThemes[key] || '#A9834F';
+        var cardRect = card.getBoundingClientRect();
+        var targetY = cardRect.top - mainRect.top + cardRect.height / 2;
+        if (targetY < 0 || targetY > riverHeight) return;
+        var pt = findPointAtY(water, targetY, totalLen);
+
+        var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'river-marker');
+        g.setAttribute('data-card', key);
+
+        var ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        ring.setAttribute('class', 'ripple-ring');
+        ring.setAttribute('cx', pt.x);
+        ring.setAttribute('cy', pt.y);
+        ring.setAttribute('r', 10);
+        ring.setAttribute('stroke', color);
+
+        var pin = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        pin.setAttribute('class', 'pin');
+        pin.setAttribute('cx', pt.x);
+        pin.setAttribute('cy', pt.y);
+        pin.setAttribute('r', 5);
+        pin.setAttribute('fill', color);
+
+        g.appendChild(ring);
+        g.appendChild(pin);
+        markersGroup.appendChild(g);
+      });
+    }
+
+    var ticking = false;
+    function updateRiver() {
+      if (!totalLen) return;
+      var mainTopAbs = mainEl.offsetTop;
+      var scrollY = window.scrollY || window.pageYOffset;
+      var progress = (scrollY - mainTopAbs + window.innerHeight * 0.4) / riverHeight;
+      progress = Math.max(0, Math.min(1, progress));
+
+      water.style.strokeDashoffset = totalLen * (1 - progress);
+
+      var pt = water.getPointAtLength(progress * totalLen);
+      drop.setAttribute('cx', pt.x);
+      drop.setAttribute('cy', pt.y);
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateRiver);
+      }
+    }
+
+    var resizeTimer;
+    function onResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        rebuildRiver();
+        updateRiver();
+      }, 200);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    window.addEventListener('load', function() {
+      rebuildRiver();
+      updateRiver();
+    });
+
+    rebuildRiver();
+    updateRiver();
+
+    // Ripple effect when a highlight-card scrolls into view
+    var riverCardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var key = entry.target.getAttribute('data-card');
+          var ring = markersGroup.querySelector('.river-marker[data-card="' + key + '"] .ripple-ring');
+          if (ring) {
+            ring.classList.remove('active');
+            void ring.getBoundingClientRect();
+            ring.classList.add('active');
+          }
+        }
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('.highlight-card').forEach(function(card) {
+      riverCardObserver.observe(card);
+    });
+  })();
+</script>
+
+</body>
+</html>
